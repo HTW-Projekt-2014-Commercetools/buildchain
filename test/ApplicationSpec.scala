@@ -26,5 +26,9 @@ class ApplicationSpec extends Specification {
       contentType(home) must beSome.which(_ == "text/html")
       contentAsString(home) must contain ("Your new application is ready.")
     }
+
+    "you shall not pass!!!" in new WithApplication() {
+      true mustEqual false
+    }
   }
 }
