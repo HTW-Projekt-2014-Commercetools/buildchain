@@ -1,14 +1,13 @@
+import scoverage.ScoverageSbtPlugin.instrumentSettings
+import org.scoverage.coveralls.CoverallsPlugin.coverallsSettings
+
 name := """buildchain"""
 
 version := "1.0-SNAPSHOT"
 
-org.scoverage.coveralls.CoverallsPlugin.coverallsSettings
-
-scoverage.ScoverageSbtPlugin.instrumentSettings
+scalaVersion := "2.11.1"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
-
-scalaVersion := "2.11.1"
 
 libraryDependencies ++= Seq(
   jdbc,
@@ -16,3 +15,11 @@ libraryDependencies ++= Seq(
   cache,
   ws
 )
+
+instrumentSettings
+
+CoverallsPlugin.coverallsSettings
+
+ScoverageKeys.minimumCoverage := 1
+
+ScoverageKeys.failOnMinimumCoverage := true
