@@ -5,6 +5,5 @@ notifications:
   email: false
 deploy:
   provider: heroku
-  app: buildchain
   api-key:
     secure: aA4ZLzIuXqSBS8gnxLoUeps403Q6gzt1w8mcYmJlnPVArfHObnZxO3Kvf49yKHvIEmRgwuFbXfFzUwfr8rlQC59bbuKMZmsH6MKWTSsHJ87ZqclhyWEcxJkhfH5LxUWEkhVuwHtkGta7i558+Y7IB+x8Ukyt37QbFpu+0YkHZRo=
