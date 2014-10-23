@@ -1,6 +1,3 @@
-import scoverage.ScoverageSbtPlugin.instrumentSettings
-import org.scoverage.coveralls.CoverallsPlugin.coverallsSettings
-
 name := """buildchain"""
 
 version := "1.0-SNAPSHOT"
@@ -18,8 +15,6 @@ libraryDependencies ++= Seq(
 
 instrumentSettings
 
-CoverallsPlugin.coverallsSettings
-
-ScoverageKeys.minimumCoverage := 1
+ScoverageKeys.minimumCoverage := 70
 
 ScoverageKeys.failOnMinimumCoverage := true
