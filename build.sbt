@@ -13,6 +13,8 @@ libraryDependencies ++= Seq(
   ws
 )
 
+parallelExecution in Global := false
+
 instrumentSettings
 
 ScoverageKeys.minimumCoverage := 70
