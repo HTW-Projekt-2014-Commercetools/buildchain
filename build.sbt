@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
   ws
 )
 
-parallelExecution in Global := false
+parallelExecution in Test := false
 
 instrumentSettings
 
