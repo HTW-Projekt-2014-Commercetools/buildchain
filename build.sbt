@@ -19,4 +19,4 @@ instrumentSettings
 
 //ScoverageKeys.minimumCoverage := 70
 
-ScoverageKeys.failOnMinimumCoverage := true
+//ScoverageKeys.failOnMinimumCoverage := true
