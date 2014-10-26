@@ -17,6 +17,6 @@ parallelExecution in Test := false
 
 instrumentSettings
 
-ScoverageKeys.minimumCoverage := 70
+//ScoverageKeys.minimumCoverage := 70
 
 ScoverageKeys.failOnMinimumCoverage := true
