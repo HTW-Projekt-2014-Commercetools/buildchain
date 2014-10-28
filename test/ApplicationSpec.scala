@@ -19,9 +19,9 @@ class ApplicationSpec extends Specification {
       route(FakeRequest(GET, "/boum")) must beNone
     }
 
-//    "show foo" in new WithApplication{
-//      contentAsString(route(FakeRequest(GET, "/foo")).get) mustEqual("bar")
-//    }
+    "show foo" in new WithApplication{
+      contentAsString(route(FakeRequest(GET, "/foo")).get) mustEqual("bar")
+    }
 
     "render the index page" in new WithApplication{
       val home = route(FakeRequest(GET, "/")).get
