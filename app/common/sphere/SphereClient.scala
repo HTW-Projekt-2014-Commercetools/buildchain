@@ -14,10 +14,8 @@ trait SphereClient {
 
 }
 
-class MockSphereClient extends SphereClient {
-  override def createSphereClient(): PlayJavaClient = createMockClient()
-
-  private def createMockClient(): PlayJavaClient = new MockClient
+object MockSphereClient extends SphereClient {
+  override def createSphereClient(): PlayJavaClient = new MockClient
 
   class MockClient extends PlayJavaClient {
     override def execute[T](p1: ClientRequest[T]): Promise[T] = ???
@@ -26,7 +24,7 @@ class MockSphereClient extends SphereClient {
   }
 }
 
-class RemoteSphereClient extends SphereClient {
+object RemoteSphereClient extends SphereClient {
   override def createSphereClient(): PlayJavaClient = createRemoteClient()
 
   def createRemoteClient() = {

@@ -1,5 +1,7 @@
 package common.sphere
 
+import play.api.{Mode, Play}
+
 object SphereClientFactory {
   lazy val instance = getInstance
 
@@ -7,5 +9,9 @@ object SphereClientFactory {
     instance
   }
 
-  def getInstance = new RemoteSphereClient
+  def getInstance = Play.current.mode match {
+    case Mode.Dev => RemoteSphereClient
+    case Mode.Prod => RemoteSphereClient
+    case Mode.Test => MockSphereClient
+  }
 }
