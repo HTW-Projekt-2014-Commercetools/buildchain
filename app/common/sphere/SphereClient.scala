@@ -1,9 +1,9 @@
 package common.sphere
 
-import java.util
 import com.typesafe.config.{ConfigFactory, Config}
-import io.sphere.sdk.client.{PlayJavaClientImpl, PlayJavaClient}
+import io.sphere.sdk.client.{ScalaClientImpl, ScalaClient, PlayJavaClientImpl, PlayJavaClient}
 import io.sphere.sdk.http.ClientRequest
+import io.sphere.sdk.products.queries.ProductQuery
 import play.api.Play
 import play.libs.F.Promise
 
@@ -11,7 +11,7 @@ trait SphereClient {
   val client = createSphereClient()
   def createSphereClient(): PlayJavaClient
 
-
+  def getProducts(page: Int, size: Int) = client.execute(new ProductQuery().withLimit(size).withOffset(page * size))
 }
 
 object MockSphereClient extends SphereClient {
@@ -24,17 +24,15 @@ object MockSphereClient extends SphereClient {
   }
 }
 
-object RemoteSphereClient extends SphereClient {
-  override def createSphereClient(): PlayJavaClient = createRemoteClient()
+object DevSphereClient extends SphereClient {
+  override def createSphereClient(): PlayJavaClient = new PlayJavaClientImpl(Play.current.configuration.underlying)
+}
 
-  def createRemoteClient() = {
-    val defaultValuesFromClasspath: Config = ConfigFactory.load
-    val values: util.HashMap[String, Object] = new util.HashMap
-    values.put("sphere.project", Play.current.configuration.getString("sphere.project").getOrElse(""))
-    values.put("sphere.clientId", Play.current.configuration.getString("sphere.clientId").getOrElse(""))
-    values.put("sphere.clientSecret", Play.current.configuration.getString("sphere.clientSecret").getOrElse(""))
-    val config: Config = ConfigFactory.parseMap(values).withFallback(defaultValuesFromClasspath)
-
+object ProdSphereClient extends SphereClient {
+  override def createSphereClient(): PlayJavaClient = {
+    val config: Config = getConfigFromEnvVariables
     new PlayJavaClientImpl(config)
   }
+
+  def getConfigFromEnvVariables: Config = ???
 }

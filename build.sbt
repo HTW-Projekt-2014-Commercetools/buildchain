@@ -1,4 +1,4 @@
-name := """buildchain"""
+name := """Paging-Api-Client"""
 
 version := "1.0-SNAPSHOT"
 
