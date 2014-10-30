@@ -6,12 +6,12 @@ scalaVersion := "2.10.4"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-libraryDependencies ++= Seq(
-  jdbc,
-  anorm,
-  cache,
-  ws
-)
+//libraryDependencies ++= Seq(
+//  jdbc,
+//  anorm,
+//  cache,
+//  ws
+//)
 
 libraryDependencies += "io.sphere.sdk.jvm" % "sphere-play-sdk_2.10" % "1.0.0-M6" withSources()
 
