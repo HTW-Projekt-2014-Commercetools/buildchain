@@ -10,8 +10,8 @@ object SphereClientFactory {
   }
 
   def getInstance = Play.current.mode match {
-    case Mode.Dev => DevSphereClient
-    case Mode.Prod => ProdSphereClient
+    case Mode.Dev => RemoteSphereClient
+    case Mode.Prod => RemoteSphereClient
     case Mode.Test => MockSphereClient
   }
 }

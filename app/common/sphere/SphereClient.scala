@@ -24,15 +24,6 @@ object MockSphereClient extends SphereClient {
   }
 }
 
-object DevSphereClient extends SphereClient {
+object RemoteSphereClient extends SphereClient {
   override def createSphereClient(): PlayJavaClient = new PlayJavaClientImpl(Play.current.configuration.underlying)
-}
-
-object ProdSphereClient extends SphereClient {
-  override def createSphereClient(): PlayJavaClient = {
-    val config: Config = getConfigFromEnvVariables
-    new PlayJavaClientImpl(config)
-  }
-
-  def getConfigFromEnvVariables: Config = ???
 }
