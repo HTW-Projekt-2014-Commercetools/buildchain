@@ -1,17 +1,17 @@
 package controllers
 
+import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import provider.PagingProvider
+import scala.concurrent.ExecutionContext.Implicits.global
 
-import scala.concurrent.Future
-
-class PagingController(pagingService: PagingProvider) extends Controller {
+class PagingController(pagingProvider: PagingProvider) extends Controller {
 
   def action = Action {
     Ok("Blub")
   }
 
   def getProducts(page: Int, size: Int) = Action.async {
-    Future.successful(Ok("test"))
+    pagingProvider.getProducts(0, 5).map(Ok(_))
   }
 }
