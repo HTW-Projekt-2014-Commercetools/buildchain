@@ -15,7 +15,7 @@ class PagingProvider(client: SphereClient) {
 
     val filteredProds: Future[JsValue] = client.execute(productQuery).map {
       res => {
-        Json.toJson(res.getResults.toList.filter(p => p.getMasterData.isPublished).map(prod => Json.toJson(prod)))
+        Json.obj("products" -> res.getResults.toList.filter(p => p.getMasterData.isPublished).map(prod => Json.toJson(prod)))
       }
     }.recover {
       case e: Exception =>
