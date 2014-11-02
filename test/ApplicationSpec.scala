@@ -27,7 +27,7 @@ class ApplicationSpec extends Specification {
       contentAsString(home) must contain ("Blub")
     }
 
-    "get more products must return Json" in new WithApplication{
+    "get more products must return test Json" in new WithApplication{
       val products = route(FakeRequest(GET, "/products?offset=3&size=2")).get
 
       status(products) must equalTo(OK)

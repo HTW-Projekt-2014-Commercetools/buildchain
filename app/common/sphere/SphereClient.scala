@@ -5,7 +5,7 @@ import io.sphere.sdk.http.{ClientRequest}
 import play.api.Play
 
 trait SphereClient extends WrappedQueries {
-  val client = createSphereClient()
+  lazy val client = createSphereClient()
   def createSphereClient(): ScalaClient
 
   def execute[T](req: ClientRequest[T]) = client.execute(req)

@@ -1,5 +1,6 @@
 package common.sphere
 
+import play.api.Mode.Mode
 import play.api.{Mode, Play}
 
 object SphereClientFactory {
@@ -9,9 +10,11 @@ object SphereClientFactory {
     instance
   }
 
-  def getInstance = Play.current.mode match {
+  def returnClientForMode(mode: Mode) = mode match {
     case Mode.Dev => RemoteSphereClient
     case Mode.Prod => RemoteSphereClient
     case Mode.Test => ProjectMockSphereClient
   }
+
+  def getInstance = returnClientForMode(Play.current.mode)
 }

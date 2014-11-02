@@ -7,7 +7,7 @@ class WrappedQueriesTest extends Specification {
 
   "WrappedQueries" should {
     "getProductQuery must return valid Product Query DSL Object with offset and limit" in new WithApplication {
-      val productQuery = RemoteSphereClient.getProductQuery(3, 5)
+      val productQuery = SphereClientFactory.getInstance.getProductQuery(3, 5)
       productQuery.limit().get() mustEqual 5
       productQuery.offset().get() mustEqual 15
     }
