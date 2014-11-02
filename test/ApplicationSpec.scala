@@ -32,7 +32,7 @@ class ApplicationSpec extends Specification {
 
       status(products) must equalTo(OK)
       contentType(products) must beSome.which(_ == "application/json")
-      contentAsString(products) must contain ("{\"products\":[")
+      contentAsString(products) must contain ("{\"products\":[{\"id\":\"foo-id\",\"name\":\"name\",\"description\":\"description\"}]}")
     }
   }
 }

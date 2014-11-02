@@ -1,6 +1,6 @@
 package common.sphere
 
-import io.sphere.sdk.client.{SphereRequestExecutorTestDouble, ScalaClientImpl, ScalaClient}
+import io.sphere.sdk.client.{ScalaClientImpl, ScalaClient}
 import io.sphere.sdk.http.{ClientRequest}
 import play.api.Play
 
@@ -14,3 +14,5 @@ trait SphereClient extends WrappedQueries {
 object RemoteSphereClient extends SphereClient {
   override def createSphereClient(): ScalaClient = new ScalaClientImpl(Play.current.configuration.underlying)
 }
+
+

@@ -6,7 +6,7 @@ import play.api.test.WithApplication
 class SphereClientFactorySpec extends Specification {
   "SphereClientFactory" should {
     "getInstance must return MockClient for tests" in new WithApplication {
-      SphereClientFactory.getInstance must be(RemoteSphereClient)
+      SphereClientFactory.getInstance must be(ProjectMockSphereClient)
     }
   }
 }
