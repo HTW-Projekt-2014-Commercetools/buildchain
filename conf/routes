@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           @controllers.PagingController.action
+GET     /                           @controllers.PagingController.showProducts
 GET     /products                   @controllers.PagingController.getProducts(offset: Int, size: Int)
 
 # Map static resources from the /public folder to the /assets URL path
