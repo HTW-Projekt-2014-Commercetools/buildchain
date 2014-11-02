@@ -7,7 +7,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class PagingController(pagingProvider: PagingProvider) extends Controller {
 
   def showProducts = Action {
-    Ok("Blub")
+    Ok(views.html.index("Blub"))
   }
 
   def getProducts(page: Int, size: Int) = Action.async {

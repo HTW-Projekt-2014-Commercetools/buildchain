@@ -19,16 +19,20 @@ class ApplicationSpec extends Specification {
       route(FakeRequest(GET, "/boum")) must beNone
     }
 
-//    "render the index page" in new WithApplication{
-//      val home = route(FakeRequest(GET, "/")).get
-//
-//      status(home) must equalTo(OK)
-//      contentType(home) must beSome.which(_ == "text/html")
-//      contentAsString(home) must contain ("Your new application is ready.")
-//    }
+    "render the index page" in new WithApplication{
+      val home = route(FakeRequest(GET, "/")).get
 
-//    "you shall not pass!!!" in new WithApplication() {
-//      true mustEqual false
-//    }
+      status(home) must equalTo(OK)
+      contentType(home) must beSome.which(_ == "text/html")
+      contentAsString(home) must contain ("Blub")
+    }
+
+    "get more products must return Json" in new WithApplication{
+      val products = route(FakeRequest(GET, "/products?offset=3&size=2")).get
+
+      status(products) must equalTo(OK)
+      contentType(products) must beSome.which(_ == "application/json")
+      contentAsString(products) must contain ("{\"products\":[")
+    }
   }
 }
