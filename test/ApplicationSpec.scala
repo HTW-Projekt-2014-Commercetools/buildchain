@@ -28,11 +28,11 @@ class ApplicationSpec extends Specification {
     }
 
     "get more products must return test Json" in new WithApplication{
-      val products = route(FakeRequest(GET, "/products?offset=3&size=2")).get
+      val products = route(FakeRequest(GET, "/products?page=3&size=2")).get
 
       status(products) must equalTo(OK)
       contentType(products) must beSome.which(_ == "application/json")
-      contentAsString(products) must contain ("{\"products\":[{\"id\":\"foo-id\",\"name\":\"name\",\"description\":\"description\"}]}")
+      contentAsString(products) must contain ("{\"paging\":{\"page\":3,\"pagesize\":2},\"products\":[{\"id\":\"foo-id\",\"name\":\"name\",\"description\":\"description\"}]}")
     }
   }
 }

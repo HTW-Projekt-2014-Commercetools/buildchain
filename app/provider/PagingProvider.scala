@@ -13,18 +13,20 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class PagingProvider(client: SphereClient) {
 
 
-  def getProducts(page: Int, size: Int): Future[JsValue] = {
+  def getProducts(page: Int, size: Int): Future[JsObject] = {
     val productQuery = client.getProductQuery(page, size)
     val products: Future[PagedQueryResult[Product]] = client.execute(productQuery)
 
-    products map transformResultToJson recover { case e: Exception =>
+    products map(buildJsonBody(page, size) ++ transformResultToJson(_)) recover { case e: Exception =>
       throw e
       Json.obj("products" -> Nil) }
   }
 
-  def transformResultToJson(products: PagedQueryResult[Product]): JsValue = {
+  def transformResultToJson(products: PagedQueryResult[Product]): JsObject = {
     Json.obj("products" -> products.getResults.toList.map(Json.toJson(_)))
   }
+
+  def buildJsonBody(page: Int, size: Int): JsObject = Json.obj("paging" -> Json.obj("page" -> page, "pagesize" -> size))
 
   implicit val productWrite: Writes[Product] = Writes {
     def getDescription(p: Product) = p.getMasterData.getStaged.getDescription.get().get(Locale.ENGLISH).orElse("NA")
