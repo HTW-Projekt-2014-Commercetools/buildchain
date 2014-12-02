@@ -47,7 +47,6 @@ class DemandService(elasticsearch: ElasticsearchClient) {
   }
 
   def getDemandsFromEs = {
-    val listener = new ActionListenerAdapter[SearchResponse]
-    listener.execute(elasticsearch.prepareSearch(demandIndex, demandType).setQuery(QueryBuilders.matchAllQuery())).map(result => result.getHits.getHits)
+    elasticsearch.search(demandIndex, demandType, QueryBuilders.matchAllQuery()).map(result => result.getHits.getHits)
   }
 }
