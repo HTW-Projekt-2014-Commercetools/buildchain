@@ -6,9 +6,7 @@ import play.api.{Mode, Play}
 object SphereClientFactory {
   lazy val instance = getInstance
 
-  def apply(): SphereClient = {
-    instance
-  }
+  def apply(): SphereClient = instance
 
   def returnClientForMode(mode: Mode) = mode match {
     case Mode.Dev => RemoteSphereClient

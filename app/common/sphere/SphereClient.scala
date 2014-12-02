@@ -13,7 +13,7 @@ import io.sphere.sdk.producttypes.{ProductTypeBuilder, ProductType}
 import io.sphere.sdk.queries.PagedQueryResult
 import play.api.Play
 
-trait SphereClient extends WrappedQueries {
+sealed trait SphereClient extends WrappedQueries {
   lazy val client = createSphereClient()
   def createSphereClient(): ScalaClient
 
