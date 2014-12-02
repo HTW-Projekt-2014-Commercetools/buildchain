@@ -1,10 +1,10 @@
 package controllers
 
 import play.api.mvc.{Action, Controller}
-import provider.PagingProvider
+import services.PagingService
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class PagingController(pagingProvider: PagingProvider) extends Controller {
+class PagingController(pagingProvider: PagingService) extends Controller {
 
   def showProducts = Action {
     Ok(views.html.index("Blub"))

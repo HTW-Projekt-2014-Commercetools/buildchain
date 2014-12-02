@@ -1,4 +1,4 @@
-package provider
+package services
 
 import java.util.Locale
 
@@ -10,7 +10,7 @@ import scala.collection.JavaConversions._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class PagingProvider(client: SphereClient) {
+class PagingService(client: SphereClient) {
 
 
   def getProducts(page: Int, size: Int): Future[JsObject] = {

@@ -1,9 +1,12 @@
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+resolvers += Classpaths.sbtPluginReleases
 
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.5")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.6")
+
+// code coverage
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "0.99.4")
 
 // web plugins
 //addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0")
@@ -18,5 +21,3 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.5")
 
 //addSbtPlugin("com.typesafe.sbt" % "sbt-mocha" % "1.0.0")
 
-// code coverage
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "0.99.9")

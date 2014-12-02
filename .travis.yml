@@ -5,7 +5,7 @@ jdk:
   - oraclejdk8
 before_install:
   sudo pip install codecov
-script: "sbt clean scoverage:test"
+script: "./sbt clean scoverage:test"
 notifications:
   email: false
 after_success:
