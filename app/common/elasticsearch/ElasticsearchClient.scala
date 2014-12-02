@@ -1,6 +1,7 @@
 package common.elasticsearch
 
 import common.domain.{TypeName, IndexName}
+import org.elasticsearch.action.index.IndexResponse
 import org.elasticsearch.action.{ActionListener, ListenableActionFuture}
 import org.elasticsearch.action.search.SearchResponse
 import org.elasticsearch.client.Client
@@ -25,8 +26,8 @@ sealed trait ElasticsearchClient {
   def close(): Unit
   def createElasticsearchClient(): Client
 
-  def prepareIndex(esIndex: IndexName, esType: TypeName, doc: JsValue) =
-    client.prepareIndex(esIndex.value, esType.value).setSource(doc.toString())
+  def indexDocument(esIndex: IndexName, esType: TypeName, doc: JsValue): Future[IndexResponse] =
+    client.prepareIndex(esIndex.value, esType.value).setSource(doc.toString()).execute()
   def search(esIndex: IndexName, esType: TypeName, query: QueryBuilder): Future[SearchResponse] =
     client.prepareSearch(esIndex.value).setTypes(esType.value).setQuery(query).execute()
 }

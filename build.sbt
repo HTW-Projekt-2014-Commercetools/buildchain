@@ -2,15 +2,15 @@ name := """Paging-Api-Client"""
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.10.2"
+scalaVersion := "2.11.4"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-instrumentSettings
-
-libraryDependencies += "io.sphere.sdk.jvm" % "sphere-play-sdk_2.10" % "1.0.0-M6" withSources()
-
 libraryDependencies += "io.sphere.sdk.jvm" % "models" % "1.0.0-M7"
+
+libraryDependencies +=  "io.sphere.sdk.jvm" % "models" % "1.0.0-M7"
+
+libraryDependencies +=  "io.sphere.sdk.jvm" %% "play-2_3-java-client" % "1.0.0-M8"
 
 libraryDependencies += "org.elasticsearch" % "elasticsearch" % "1.4.1"
 

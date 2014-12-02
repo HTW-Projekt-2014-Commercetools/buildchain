@@ -1,14 +1,16 @@
 package controllers
 
-import common.domain.DemandForm
+import common.domain.{DemandSaved, DemandForm}
 import play.api._
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.libs.json.Json
 import play.api.data.format.Formats._
 import services.DemandService
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+
+import scala.concurrent.Future
+
 
 class DemandController(demandService: DemandService) extends Controller {
 
@@ -28,17 +30,20 @@ class DemandController(demandService: DemandService) extends Controller {
     )(DemandForm.apply)(DemandForm.unapply)
   }
 
-  def addDemand = Action {
+  def addDemand = Action.async {
   implicit request =>
     demandsForm.bindFromRequest.fold(
       formWithErrors => {
         // binding failure, you retrieve the form containing errors:
-        BadRequest(views.html.demand(formWithErrors))
+        Future.successful(BadRequest(views.html.demand(formWithErrors)))
       },
       demandData => {
         /* binding success, you get the actual value. */
-        demandService.addDemand(demandData)
-        Redirect(routes.DemandController.getDemands)
+        demandService.addDemand(demandData).map {
+        case DemandSaved => Redirect(routes.DemandController.getDemands)
+        case _ => Redirect(routes.DemandController.addDemand)
+        }
+
       }
     )
   }

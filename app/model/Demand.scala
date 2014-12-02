@@ -12,8 +12,10 @@ case class Demand(
 	priceMax: Double)
 
 object Demand {
-	implicit val latitudeFormat = Json.format[Latitude]
-	implicit val longitudeFormat = Json.format[Longitude]
+	implicit val latitudeReads: Reads[Latitude] = (JsPath \ "lat").read[Double].map(Latitude)
+	implicit val latitudeWrites: Writes[Latitude] = Writes { (lat: Latitude) => JsNumber(lat.x) }
+	implicit val longitudeReads: Reads[Longitude] = (JsPath \ "lon").read[Double].map(Longitude)
+	implicit val longitudeWrites: Writes[Longitude] = Writes { (lon: Longitude) => JsNumber(lon.x) }
 	implicit val locationFormat = Json.format[Location]
   implicit val demandFormat = Json.format[Demand]
 }

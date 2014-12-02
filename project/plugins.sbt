@@ -6,7 +6,7 @@ resolvers += Classpaths.sbtPluginReleases
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.6")
 
 // code coverage
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "0.99.4")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.1")
 
 // web plugins
 //addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0")
