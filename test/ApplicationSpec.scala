@@ -19,16 +19,8 @@ class ApplicationSpec extends Specification {
       route(FakeRequest(GET, "/boum")) must beNone
     }
 
-    "render the index page" in new WithApplication{
-      val home = route(FakeRequest(GET, "/")).get
-
-      status(home) must equalTo(OK)
-      contentType(home) must beSome.which(_ == "text/html")
-      contentAsString(home) must contain ("Blub")
-    }
-
     "get more products must return test Json" in new WithApplication{
-      val products = route(FakeRequest(GET, "/products?page=3&size=2")).get
+      val products = route(FakeRequest(GET, "/products/page/3/size/2")).get
 
       status(products) must equalTo(OK)
       contentType(products) must beSome.which(_ == "application/json")
