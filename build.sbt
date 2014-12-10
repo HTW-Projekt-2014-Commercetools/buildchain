@@ -6,9 +6,7 @@ scalaVersion := "2.11.4"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-libraryDependencies += "io.sphere.sdk.jvm" % "models" % "1.0.0-M7"
-
-libraryDependencies +=  "io.sphere.sdk.jvm" % "models" % "1.0.0-M7"
+libraryDependencies += "io.sphere.sdk.jvm" % "models" % "1.0.0-M8"
 
 libraryDependencies +=  "io.sphere.sdk.jvm" %% "play-2_3-java-client" % "1.0.0-M8"
 
