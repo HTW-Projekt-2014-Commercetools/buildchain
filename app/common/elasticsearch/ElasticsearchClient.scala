@@ -34,7 +34,7 @@ sealed trait ElasticsearchClient {
 
 
 object LocalEsClient extends ElasticsearchClient {
-  lazy val node: Node = NodeBuilder.nodeBuilder().node()
+  lazy val node: Node = NodeBuilder.nodeBuilder().local(true).node()
   override def createElasticsearchClient(): Client = node.client()
   override def close() = node.close()
 }
