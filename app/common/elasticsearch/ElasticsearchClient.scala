@@ -1,10 +1,12 @@
 package common.elasticsearch
 
 import common.domain.{TypeName, IndexName}
+import common.helper.Configloader
 import org.elasticsearch.action.index.IndexResponse
 import org.elasticsearch.action.{ActionListener, ListenableActionFuture}
 import org.elasticsearch.action.search.SearchResponse
 import org.elasticsearch.client.Client
+import org.elasticsearch.common.settings.ImmutableSettings
 import org.elasticsearch.index.query.QueryBuilder
 import org.elasticsearch.node.NodeBuilder
 import org.elasticsearch.node.Node
@@ -39,11 +41,26 @@ object LocalEsClient extends ElasticsearchClient {
   override def close() = node.close()
 }
 
-
 object RemoteEsClient extends ElasticsearchClient {
-  // TODO implement nodeclient that connects to external cluster when we have one
-  lazy val node: Node = NodeBuilder.nodeBuilder().node()
-  override def createElasticsearchClient(): Client = NodeBuilder.nodeBuilder().node().client()
+  val clustername = Configloader.getStringOpt("elasticsearch.clustername").getOrElse("elasticsearch")
+  val hosts = readHostsFromConfig(Configloader.getStringSeq("elasticsearch.hosts").getOrElse(Nil))
+  lazy val node: Node = NodeBuilder.nodeBuilder()
+    .clusterName(clustername)
+    .client(true)
+    .settings(ImmutableSettings.settingsBuilder()
+      .put("discovery.zen.ping.unicast.hosts", hosts.map(hp => s"${hp.host}:${hp.port}").mkString(",")))
+    .node()
+
+  override def createElasticsearchClient(): Client = node.client()
   override def close() = node.close()
+
+  def readHostsFromConfig(configString: List[String]): List[HostWithPort] = {
+    configString.map {
+      s =>
+        val hostAndPortArray = s.split(":")
+        HostWithPort(hostAndPortArray(0), hostAndPortArray(1).toInt)
+    }
+  }
 }
 
+case class HostWithPort(host: String, port: Int)
