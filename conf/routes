@@ -6,14 +6,13 @@
 GET        /products/page/:page/size/:size   @controllers.PagingController.getProducts(page: Int, size: Int)
 
 # Model & Matching
-#GET 	/offers/ 				@controllers.Offers.index
-#POST	/offers/				@controllers.Offers.addOffer
-#GET     /offers/list			@controllers.Offers.getOffers
-
 GET     /demands/add 			@controllers.DemandController.form
 POST	/demands/add			@controllers.DemandController.addDemand
 GET 	/demands/list			@controllers.DemandController.getDemands
 
+GET     /offers/add 			@controllers.OfferController.form
+POST	/offers/add	    		@controllers.OfferController.addOffer
+GET 	/offers/list			@controllers.OfferController.getOffers
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)

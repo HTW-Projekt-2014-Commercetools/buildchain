@@ -1,7 +1,8 @@
 package model
 
-import common.domain.{Longitude, Latitude, Location, Price}
+import common.domain.{Location, Longitude, Latitude, Price}
 import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
 case class OfferId(value: String)
 case class Offer(
@@ -14,19 +15,30 @@ case class Offer(
 
 object Offer {
 
-  implicit val offerIdReads: Reads[OfferId] = (JsPath \ "id").read[String].map(OfferId)
-  implicit val offerIdWrites: Writes[OfferId] = Writes { (id: OfferId) => JsString(id.value) }
-  implicit val userIdReads: Reads[UserId] = (JsPath \ "uid").read[String].map(UserId)
-  implicit val userIdWrites: Writes[UserId] = Writes { (uid: UserId) => JsString(uid.value) }
-  implicit val productIdReads: Reads[ProductId] = (JsPath \ "pid").read[String].map(ProductId)
-  implicit val productIdWrites: Writes[ProductId] = Writes { (pid: ProductId) => JsString(pid.value) }
-  implicit val latitudeReads: Reads[Latitude] = (JsPath \ "lat").read[Double].map(Latitude)
-  implicit val latitudeWrites: Writes[Latitude] = Writes { (lat: Latitude) => JsNumber(lat.value) }
-  implicit val longitudeReads: Reads[Longitude] = (JsPath \ "lon").read[Double].map(Longitude)
-  implicit val longitudeWrites: Writes[Longitude] = Writes { (lon: Longitude) => JsNumber(lon.value) }
-  implicit val priceReads: Reads[Price] = (JsPath \ "price").read[Double].map(Price)
-  implicit val priceWrites: Writes[Price] = Writes { (price: Price) => JsNumber(price.value) }
+  implicit val offerReads: Reads[Offer] = (
+    (JsPath \ "id").read[String] and
+    (JsPath \ "userId").read[String] and
+    (JsPath \ "productId").read[String] and
+    (JsPath \ "tags").read[String] and
+    (JsPath \ "location" \ "lat").read[Double] and
+    (JsPath \ "location" \ "lon").read[Double] and
+    (JsPath \ "price").read[Double]
+    ) {
+    (id, uid, pid, tags, lat, lon, price) => Offer(OfferId(id), UserId(uid), ProductId(pid), tags, Location(Longitude(lon), Latitude(lat)),
+      Price(price))
+  }
 
-  implicit val locationFormat = Json.format[Location]
-  implicit val offerFormat = Json.format[Offer]
+  implicit val offerWrites = new Writes[Offer] {
+    def writes(o: Offer) = Json.obj(
+      "id" -> o.id.value,
+      "userId" -> o.uid.value,
+      "productId" -> o.pid.value,
+      "tags" -> o.tags,
+      "location" -> Json.obj(
+        "lat" -> o.location.lat.value,
+        "lon" -> o.location.lon.value
+      ),
+      "price" -> o.price.value
+    )
+  }
 }

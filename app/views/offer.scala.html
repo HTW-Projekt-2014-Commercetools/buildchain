@@ -1,0 +1,16 @@
+@import helper._
+@import common.domain.OfferForm
+
+@(offerForm: Form[OfferForm])
+
+@form(action = routes.OfferController.addOffer()) {
+  @inputText(offerForm("id"))
+  @inputText(offerForm("userId"))
+  @inputText(offerForm("productId"))
+  @inputText(offerForm("tags"))
+  @inputText(offerForm("lon"))
+  @inputText(offerForm("lat"))
+  @inputText(offerForm("price"))
+
+  <button type="submit">Save</button>
+}

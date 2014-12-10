@@ -2,8 +2,8 @@ package common
 
 import common.elasticsearch.ElasticsearchClientFactory
 import common.sphere.SphereClientFactory
-import controllers.{DemandController, PagingController}
-import services.{DemandService, PagingService}
+import controllers.{DemandController, OfferController, PagingController}
+import services.{DemandService, OfferService, PagingService}
 
 trait WireDependencies {
   import com.softwaremill.macwire.MacwireMacros._
@@ -15,8 +15,10 @@ trait WireDependencies {
   // Services
   lazy val pagingService = wire[PagingService]
   lazy val demandService = wire[DemandService]
+  lazy val offerService = wire[OfferService]
 
   // Controllers
   lazy val pagingController = wire[PagingController]
   lazy val demandController = wire[DemandController]
+  lazy val offerController = wire[OfferController]
 }

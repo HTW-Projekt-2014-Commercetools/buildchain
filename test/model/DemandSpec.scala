@@ -8,9 +8,9 @@ import play.api.test.WithApplication
 class DemandSpec extends Specification {
 
   val demandJs: JsObject = Json.obj(
-    "id" -> "id",
-    "userId" -> "uid",
-    "tags" -> "tags",
+    "id" -> "testId",
+    "userId" -> "testUid",
+    "tags" -> "testTags",
     "location" -> Json.obj(
       "lat" -> 10.0,
       "lon" -> 20.0
@@ -22,9 +22,9 @@ class DemandSpec extends Specification {
     )
   )
 
-  val demand: Demand = Demand(DemandId("id"),
-    UserId("uid"),
-    "tags",
+  val demand: Demand = Demand(DemandId("testId"),
+    UserId("testUid"),
+    "testTags",
     Location(Longitude(20.0), Latitude(10.0)),
     Distance(1),
     Price(50.0),
