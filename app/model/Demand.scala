@@ -2,6 +2,7 @@ package model
 
 import common.domain.{Latitude, Longitude, Location, Distance, Price}
 import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
 case class DemandId(value: String)
 case class Demand(
@@ -15,15 +16,34 @@ case class Demand(
 
 object Demand {
 
-	implicit val latitudeReads: Reads[Latitude] = (JsPath \ "lat").read[Double].map(Latitude)
-	implicit val latitudeWrites: Writes[Latitude] = Writes { (lat: Latitude) => JsNumber(lat.value) }
-	implicit val longitudeReads: Reads[Longitude] = (JsPath \ "lon").read[Double].map(Longitude)
-	implicit val longitudeWrites: Writes[Longitude] = Writes { (lon: Longitude) => JsNumber(lon.value) }
+	implicit val demandReads: Reads[Demand] = (
+		(JsPath \ "id").read[String] and
+		(JsPath \ "userId").read[String] and
+		(JsPath \ "tags").read[String] and
+		(JsPath \ "location" \ "lat").read[Double] and
+		(JsPath \ "location" \ "lon").read[Double] and
+		(JsPath \ "distance").read[Int] and
+			(JsPath \ "price" \ "min").read[Double] and
+			(JsPath \ "price" \ "max").read[Double]
+		) {
+		(id, uid, tags, lat, lon, distance, priceMin, priceMax) => Demand(DemandId(id), UserId(uid), tags, Location(Longitude(lon), Latitude(lat)),
+		Distance(distance), Price(priceMin), Price(priceMax))
+		}
 
-	implicit val demandIdFormat = Json.format[DemandId]
-	implicit val userIdFormat = Json.format[UserId]
-	implicit val locationFormat = Json.format[Location]
-	implicit val distanceFormat = Json.format[Distance]
-	implicit val priceFormat = Json.format[Price]
-	implicit val demandFormat = Json.format[Demand]
+	implicit val demandWrites = new Writes[Demand] {
+		def writes(d: Demand) = Json.obj(
+			"id" -> d.id.value,
+		  "userId" -> d.uid.value,
+		  "tags" -> d.tags,
+		  "location" -> Json.obj(
+			  "lat" -> d.location.lat.value,
+			  "lon" -> d.location.lon.value
+			),
+		  "distance" -> d.distance.value,
+		  "price" -> Json.obj(
+			  "min" -> d.priceMin.value,
+			  "max" -> d.priceMax.value
+			)
+		)
+	}
 }
