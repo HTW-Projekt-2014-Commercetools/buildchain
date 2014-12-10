@@ -1,7 +1,6 @@
 package controllers
 
 import common.domain.{DemandSaved, DemandForm}
-import play.api._
 import play.api.mvc._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -20,11 +19,12 @@ class DemandController(demandService: DemandService) extends Controller {
 
   val demandsForm: Form[DemandForm] = Form {
     mapping(
+      "id" -> nonEmptyText,
       "userId" -> nonEmptyText,
       "tags" -> nonEmptyText,
       "lon" -> of[Double],
       "lat" -> of[Double],
-      "radius" -> number(min = 0),
+      "distance" -> number(min = 0),
       "priceMin" -> of[Double],
       "priceMax" -> of[Double]
     )(DemandForm.apply)(DemandForm.unapply)

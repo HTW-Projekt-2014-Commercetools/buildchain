@@ -1,9 +1,10 @@
 package common.domain
 
-case class DemandForm(userId: String,
+case class DemandForm(id:String,
+                      userId: String,
                       tags: String,
                       lon: Double,
                       lat: Double,
-                      radius: Int,
+                      distance: Int,
                       priceMin: Double,
                       priceMax: Double)

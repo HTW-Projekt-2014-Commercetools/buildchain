@@ -4,11 +4,12 @@
 @(demandForm: Form[DemandForm])
 
 @form(action = routes.DemandController.addDemand()) {
+  @inputText(demandForm("id"))
   @inputText(demandForm("userId"))
   @inputText(demandForm("tags"))
   @inputText(demandForm("lon"))
   @inputText(demandForm("lat"))
-  @inputText(demandForm("radius"))
+  @inputText(demandForm("distance"))
   @inputText(demandForm("priceMin"))
   @inputText(demandForm("priceMax"))
 

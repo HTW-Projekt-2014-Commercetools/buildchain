@@ -1,13 +1,12 @@
 package services
 
 import common.domain._
-import common.elasticsearch.{ActionListenerAdapter, ElasticsearchClient}
-import model.Demand
+import common.elasticsearch.ElasticsearchClient
+import model.{Demand, DemandId, UserId}
 import org.elasticsearch.index.query.QueryBuilders
 import play.api.libs.json.{JsValue, Json}
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import collection.JavaConversions._
 
 class DemandService(elasticsearch: ElasticsearchClient) {
   val demandIndex = IndexName("demands")
@@ -26,12 +25,13 @@ class DemandService(elasticsearch: ElasticsearchClient) {
   def addDemand(demandData: DemandForm): Future[AddDemandResult] = {
     val location = Location(Longitude(demandData.lon), Latitude(demandData.lat))
     val demand = Demand(
-      demandData.userId,
+      DemandId(demandData.id),
+      UserId(demandData.userId),
       demandData.tags,
       location,
-      demandData.radius,
-      demandData.priceMin,
-      demandData.priceMax)
+      Distance(demandData.distance),
+      Price(demandData.priceMin),
+      Price(demandData.priceMax))
 
     for {
       es <- writeDemandToEs(demand)
