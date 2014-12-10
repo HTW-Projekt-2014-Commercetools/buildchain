@@ -3,7 +3,7 @@ package common.sphere
 import org.specs2.mutable.Specification
 import play.api.test.WithApplication
 
-class WrappedQueriesTest extends Specification {
+class WrappedQueriesSpec extends Specification {
 
   "WrappedQueries" should {
     "getProductQuery must return valid Product Query DSL Object with offset and limit" in new WithApplication {

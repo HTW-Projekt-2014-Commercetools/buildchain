@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 import play.api.libs.json.Json
 import play.api.test.WithApplication
 
-class PagingServiceTest extends Specification {
+class PagingServiceSpec extends Specification {
 
   "Paging provider" should {
     "buildJsonBody must construct correct paging information" in new WithApplication {
