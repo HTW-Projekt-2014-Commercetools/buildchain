@@ -3,8 +3,8 @@
 # ~~~~
 
 # Page dat shit
-GET        /                    @controllers.PagingController.showProducts
-GET        /products            @controllers.PagingController.getProducts(page: Int, size: Int)
+GET        /                                 @controllers.PagingController.showProducts
+GET        /products/page/:page/size/:size   @controllers.PagingController.getProducts(page: Int, size: Int)
 
 # Model & Matching
 #GET 	/offers/ 				@controllers.Offers.index
