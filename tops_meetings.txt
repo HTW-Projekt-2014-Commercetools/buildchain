@@ -1,5 +1,0 @@
-- grundlegende motivation
-- arbeitsteilung / kleinere unabhängige teams
-- meilensteine / ziele für dieses semester
-- arbeitsplanung in den semesterferien
-- android app schonmal aufmachen? eventuell phonegap titanium etc pp
