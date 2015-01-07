@@ -10,7 +10,7 @@ libraryDependencies += "io.sphere.sdk.jvm" % "models" % "1.0.0-M8"
 
 libraryDependencies +=  "io.sphere.sdk.jvm" %% "play-2_3-java-client" % "1.0.0-M8"
 
-libraryDependencies += "org.elasticsearch" % "elasticsearch" % "1.4.1"
+libraryDependencies += "org.elasticsearch" % "elasticsearch" % "1.4.2"
 
 libraryDependencies += "com.softwaremill.macwire" %% "macros" % "0.7.3"
 
